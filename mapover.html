@@ -1,0 +1,41 @@
+<html>
+<head>
+   	<title>Mapstraction Simple Example</title>
+   	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   	<script src="http://mapstraction.com/mxn/build/latest/mxn.js?(googlev3)" type="text/javascript"></script>
+	<script src="mxn.google.geocoder.js?(googlev3, [geocoder])" type="text/javascript" ></script>
+	<style type="text/css">
+	#map {
+		width: 400px;
+		height: 400px;
+	}
+	</style>
+</head>
+<body>
+	<div id="map" onload= create_map()></div>
+	<script type="text/javascript">
+	
+	var mapstraction, geocoder;
+    function create_map() {
+    mapstraction = new mxn.Mapstraction('map', 'googlev3');
+    geocoder = new MapstractionGeocoder( add_point, 'googlev3');
+    // Create address object
+    var address = {
+    street : "38 Ringold Street",
+    locality : "San Francisco",
+    region : "CA",
+    country : "US"
+    };
+    geocoder.geocode(address);
+    }
+    function add_point(loc) {
+    var mk = new mxn.Marker(loc.point);
+    mk.setInfoBubble(loc.address);
+    mapstraction.addMarker(mk);
+    mk.openBubble();
+    mapstraction.autoCenterAndZoom();
+    }
+		
+	</script>
+</body>
+</html>	
